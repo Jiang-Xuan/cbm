@@ -1,0 +1,10 @@
+{
+	"name": "test",
+	"version": "3.3.36",
+	"bin": {
+		"hello": "hello.js"
+	},
+	"dependencies": {
+		"colors": "^1.1.2"
+	}
+}
