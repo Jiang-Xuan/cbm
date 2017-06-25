@@ -80,7 +80,7 @@ const packagejson = require('./package.json');
       process.exit(1)
     }
     console.log('执行: 切换分支'.black.bgWhite)
-    console.log('checkout branch '.green + 'successful'.yellow)
+    console.log('checkout branch '.green + 'successful.'.yellow)
     console.log(checkoutResult.green)
 
     let branchNameNumber = getVersion(branch)
@@ -103,7 +103,7 @@ const packagejson = require('./package.json');
             process.exit(1)
           }
           console.log('执行: 更新package.json version字段'.black.bgWhite)
-          console.log('update package.json field version '.green + 'successful'.yellow)
+          console.log('update package.json field version '.green + 'successful.'.yellow)
           console.log('更新结果为:'.green)
           console.log(getModifiedPackageJSONVersion(string).green)
           console.log('执行: git add package.json'.black.bgWhite)
