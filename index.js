@@ -79,7 +79,8 @@ const packagejson = require('./package.json');
       console.log(e)
       process.exit(1)
     }
-    console.log('分支切换成功'.rainbow.bgWhite)
+    console.log('执行: 切换分支'.rainbow.bgWhite)
+    console.log('checkout branch '.green + 'successful'.yellow)
     console.log(checkoutResult.green)
 
     let branchNameNumber = getVersion(branch)
