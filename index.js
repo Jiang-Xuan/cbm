@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 require('colors')
+
 const fs = require('fs')
 const path = require('path')
 const { spawn } = require('child_process')
@@ -106,6 +107,7 @@ const packagejson = require('./package.json');
           console.log('update package.json field version '.green + 'successful.'.yellow)
           console.log('更新结果为:'.green)
           console.log(getModifiedPackageJSONVersion(string).green)
+
           console.log('执行: git add package.json'.black.bgWhite)
           let gitAddResult, gitCommitResult
           try {
@@ -116,6 +118,7 @@ const packagejson = require('./package.json');
             process.exit(1)
           }
           console.log('command `git add` execute '.green + 'successful.'.yellow)
+
           console.log(`执行:git commit -m '更新package.json的version字段'`.black.bgWhite)
           try {
             gitCommitResult = await gitCommit()
@@ -124,7 +127,7 @@ const packagejson = require('./package.json');
             process.exit(1)
           }
           console.log(gitCommitResult.trim())
-          console.log('command `git commit  -m 更新package.json的version字段` execute '.green + 'successful.'.yellow)
+          console.log('command `git commit  -m 更新package.json的version字段` executed '.green + 'successful.'.yellow)
         })
       } else {
         console.log(`package.json必须为文件`.red)
