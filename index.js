@@ -62,7 +62,7 @@ const packagejson = require('./package.json');
             console.log(err)
             process.exit(1)
           }
-          console.log('package.json更新成功'.green)
+          console.log('package.json更新成功'.rainbow)
           console.log('更新结果为:'.green)
           console.log(getModifiedPackageJSONVersion(string).green)
         })
