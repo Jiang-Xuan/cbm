@@ -104,7 +104,7 @@ const packagejson = require('./package.json');
           console.log('package.json更新成功'.rainbow.bgWhite)
           console.log('更新结果为:'.green)
           console.log(getModifiedPackageJSONVersion(string).green)
-          console.log('执行: git add package.json')
+          console.log('执行: git add package.json'.rainbow.bgWhite)
           let gitAddResult, gitCommitResult
           try {
             gitAddResult = await gitAdd()
@@ -113,16 +113,16 @@ const packagejson = require('./package.json');
             console.log(e)
             process.exit(1)
           }
-          console.log('command `git add` execute successful.')
-          console.log(`执行:git commit -m '更新package.json的version字段'`)
+          console.log('command `git add` execute successful.'.green)
+          console.log(`执行:git commit -m '更新package.json的version字段'`.rainbow.bgWhite)
           try {
             gitCommitResult = await gitCommit()
           } catch (e) {
             console.log(e)
             process.exit(1)
           }
-          console.log(gitCommitResult)
-          console.log('command `git commit  -m 更新package.json的version字段` execute successful.')
+          console.log(gitCommitResult.trim())
+          console.log('command `git commit  -m 更新package.json的version字段` execute successful.'.green)
         })
       } else {
         console.log(`package.json必须为文件`.red)
