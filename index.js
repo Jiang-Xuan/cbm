@@ -102,7 +102,8 @@ const packagejson = require('./package.json');
             console.log(err)
             process.exit(1)
           }
-          console.log('package.json更新成功'.rainbow.bgWhite)
+          console.log('执行: 更新package.json version字段'.rainbow.bgWhite)
+          console.log('update package.json field version '.green + 'successful'.yellow)
           console.log('更新结果为:'.green)
           console.log(getModifiedPackageJSONVersion(string).green)
           console.log('执行: git add package.json'.rainbow.bgWhite)
