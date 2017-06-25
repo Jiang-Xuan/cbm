@@ -79,7 +79,7 @@ const packagejson = require('./package.json');
       console.log(e)
       process.exit(1)
     }
-    console.log('执行: 切换分支'.black.bgWhite)
+    console.log('执行: 切换到新分支'.black.bgWhite)
     console.log('checkout branch '.green + 'successful.'.yellow)
     console.log(checkoutResult.green)
 
