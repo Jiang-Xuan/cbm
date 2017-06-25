@@ -44,7 +44,6 @@ const packagejson = require('./package.json');
   function gitAdd() {
     return new Promise((resolve, reject) => {
       let gitadd = spawn('git', ['add', 'package.json'])
-
       gitadd.stdout.on('data', data => {
         resolve(data.toString())
       })
@@ -52,13 +51,16 @@ const packagejson = require('./package.json');
       gitadd.stderr.on('data', data => {
         reject(data.toString())
       })
+
+      gitadd.on('close', code => {
+        resolve(`close width code: ${code}`)
+      })
     })
   }
 
   function gitCommit() {
     return new Promise((resolve, reject) => {
       let gitcommit = spawn('git', ['commit', '-m', '更新package.json的version字段'])
-
       gitcommit.stdout.on('data', data => {
         resolve(data.toString())
       })
@@ -94,7 +96,7 @@ const packagejson = require('./package.json');
       }
 
       if (stat.isFile()) {
-        fs.writeFile(path.resolve(process.cwd(), 'package.json'), string, async (err) => {
+        fs.writeFile(path.resolve(process.cwd(), 'package.json'), string, async function(err) {
           if (err) {
             console.log(err)
             process.exit(1)
@@ -119,6 +121,7 @@ const packagejson = require('./package.json');
             console.log(e)
             process.exit(1)
           }
+          console.log(gitCommitResult)
           console.log('command `git commit  -m 更新package.json的version字段` execute successful.')
         })
       } else {
