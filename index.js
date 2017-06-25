@@ -32,6 +32,47 @@ const packagejson = require('./package.json');
     
   }
 
+  function getModifiedPackageJSONVersion(string) {
+    let version = string.slice(string.indexOf(`"version"`) - 1)
+    return version.slice(0, version.indexOf('\n')).trim()
+  }
+
+  function getVersion(branchName) {
+    return branchName.slice(branchName.indexOf('/') + 1)
+  }
+
+  function gitAdd() {
+    return new Promise((resolve, reject) => {
+      let gitadd = spawn('git', ['add', 'package.json'])
+
+      gitadd.stdout.on('data', data => {
+        resolve(data.toString())
+      })
+
+      gitadd.stderr.on('data', data => {
+        if (data === '') {
+          resolve('ok')
+        }
+
+        reject(data.toString())
+      })
+    })
+  }
+
+  function gitCommit() {
+    return new Promise((resolve, reject) => {
+      let gitcommit = spawn('git', ['commit', '-m', '更新package.json的version字段'])
+
+      gitcommit.stdout.on('data', data => {
+        resolve(data.toString())
+      })
+
+      gitcommit.stderr.on('data', data => {
+        reject(data.toString())
+      })
+    })
+  }
+
   async function modifyPackageJSON() {
     let checkoutResult
     try {
@@ -50,14 +91,14 @@ const packagejson = require('./package.json');
     writePackageJSON(JSON.stringify(packagejson, null, '\t'))
   }
 
-  async function writePackageJSON(string) {
+  function writePackageJSON(string) {
     fs.stat(path.resolve(process.cwd(), 'package.json'), (err, stat) => {
       if (err) {
         console.log(err)
       }
 
       if (stat.isFile()) {
-        fs.writeFile(path.resolve(process.cwd(), 'package.json'), string, (err) => {
+        fs.writeFile(path.resolve(process.cwd(), 'package.json'), string, async (err) => {
           if (err) {
             console.log(err)
             process.exit(1)
@@ -90,42 +131,7 @@ const packagejson = require('./package.json');
     })
   }
 
-  function getModifiedPackageJSONVersion(string) {
-    let version = string.slice(string.indexOf(`"version"`) - 1)
-    return version.slice(0, version.indexOf('\n')).trim()
-  }
-
-  function getVersion(branchName) {
-    return branchName.slice(branchName.indexOf('/') + 1)
-  }
-
-  function gitAdd() {
-    return new Promise((resolve, reject) => {
-      let gitadd = spawn('git', ['add', 'package.json'])
-
-      gitadd.stdout.on('data', data => {
-        resolve(data.toString())
-      })
-
-      gitadd.stderr.on('data', data => {
-        reject(data.toString())
-      })
-    })
-  }
-
-  function gitCommit() {
-    return new Promise((resolve, reject) => {
-      let gitcommit = spawn('git', ['commit', '-m', '更新package.json的version字段'])
-
-      gitcommit.stdout.on('data', data => {
-        resolve(data.toString())
-      })
-
-      gitcommit.stderr.on('data', data => {
-        reject(data.toString())
-      })
-    })
-  }
+  
 
   modifyPackageJSON()
 
