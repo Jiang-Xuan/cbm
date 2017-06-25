@@ -40,7 +40,7 @@ const packagejson = require('./package.json');
       console.log(e)
       process.exit(1)
     }
-    console.log('分支切换成功'.rainbow)
+    console.log('分支切换成功'.rainbow.bgWhite)
     console.log(checkoutResult.green)
 
     let branchNameNumber = getVersion(branch)
@@ -50,7 +50,7 @@ const packagejson = require('./package.json');
     writePackageJSON(JSON.stringify(packagejson, null, '\t'))
   }
 
-  function writePackageJSON(string) {
+  async function writePackageJSON(string) {
     fs.stat(path.resolve(process.cwd(), 'package.json'), (err, stat) => {
       if (err) {
         console.log(err)
@@ -62,9 +62,26 @@ const packagejson = require('./package.json');
             console.log(err)
             process.exit(1)
           }
-          console.log('package.json更新成功'.rainbow)
+          console.log('package.json更新成功'.rainbow.bgWhite)
           console.log('更新结果为:'.green)
           console.log(getModifiedPackageJSONVersion(string).green)
+          console.log('执行: git add package.json')
+          let gitAddResult, gitCommitResult
+          try {
+            gitAddResult = await gitAdd()
+          } catch (e) {
+            console.log(e)
+            process.exit(1)
+          }
+          console.log('command `git add` execute successful.')
+          console.log(`执行:git commit -m '更新package.json的version字段'`)
+          try {
+            gitCommitResult = await gitCommit()
+          } catch (e) {
+            console.log(e)
+            process.exit(1)
+          }
+          console.log('command `git commit  -m 更新package.json的version字段` execute successful.')
         })
       } else {
         console.log(`package.json必须为文件`.red)
@@ -80,6 +97,34 @@ const packagejson = require('./package.json');
 
   function getVersion(branchName) {
     return branchName.slice(branchName.indexOf('/') + 1)
+  }
+
+  function gitAdd() {
+    return new Promise((resolve, reject) => {
+      let gitadd = spawn('git', ['add', 'package.json'])
+
+      gitadd.stdout.on('data', data => {
+        resolve(data.toString())
+      })
+
+      gitadd.stderr.on('data', data => {
+        reject(data.toString())
+      })
+    })
+  }
+
+  function gitCommit() {
+    return new Promise((resolve, reject) => {
+      let gitcommit = spawn('git', ['commit', '-m', '更新package.json的version字段'])
+
+      gitcommit.stdout.on('data', data => {
+        resolve(data.toString())
+      })
+
+      gitcommit.stderr.on('data', data => {
+        reject(data.toString())
+      })
+    })
   }
 
   modifyPackageJSON()
