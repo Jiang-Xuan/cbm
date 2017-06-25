@@ -1,6 +1,6 @@
 {
 	"name": "test",
-	"version": "3.3.55",
+	"version": "3.3.66",
 	"bin": {
 		"cbm": "index.js"
 	},
