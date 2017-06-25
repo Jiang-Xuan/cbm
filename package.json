@@ -2,7 +2,7 @@
 	"name": "test",
 	"version": "0.0.1",
 	"bin": {
-		"hello": "hello.js"
+		"cbm": "index.js"
 	},
 	"dependencies": {
 		"colors": "^1.1.2"
