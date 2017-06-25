@@ -50,6 +50,8 @@ const packagejson = require('./package.json');
       })
 
       gitadd.stderr.on('data', data => {
+        console.log('=======')
+        console.log(`data: ${data}`)
         if (data === '') {
           resolve('ok')
         }
