@@ -79,7 +79,7 @@ const packagejson = require('./package.json');
       console.log(e)
       process.exit(1)
     }
-    console.log('执行: 切换分支'.rainbow.bgWhite)
+    console.log('执行: 切换分支'.black.bgWhite)
     console.log('checkout branch '.green + 'successful'.yellow)
     console.log(checkoutResult.green)
 
@@ -106,7 +106,7 @@ const packagejson = require('./package.json');
           console.log('update package.json field version '.green + 'successful'.yellow)
           console.log('更新结果为:'.green)
           console.log(getModifiedPackageJSONVersion(string).green)
-          console.log('执行: git add package.json'.rainbow.bgWhite)
+          console.log('执行: git add package.json'.black.bgWhite)
           let gitAddResult, gitCommitResult
           try {
             gitAddResult = await gitAdd()
@@ -116,7 +116,7 @@ const packagejson = require('./package.json');
             process.exit(1)
           }
           console.log('command `git add` execute '.green + 'successful.'.yellow)
-          console.log(`执行:git commit -m '更新package.json的version字段'`.rainbow.bgWhite)
+          console.log(`执行:git commit -m '更新package.json的version字段'`.black.bgWhite)
           try {
             gitCommitResult = await gitCommit()
           } catch (e) {
