@@ -1,6 +1,6 @@
 {
 	"name": "test",
-	"version": "3.3.36",
+	"version": "0.0.1",
 	"bin": {
 		"hello": "hello.js"
 	},
