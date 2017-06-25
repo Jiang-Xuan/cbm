@@ -50,12 +50,6 @@ const packagejson = require('./package.json');
       })
 
       gitadd.stderr.on('data', data => {
-        console.log('=======')
-        console.log(`data: ${data}`)
-        if (data === '') {
-          resolve('ok')
-        }
-
         reject(data.toString())
       })
     })
@@ -113,6 +107,7 @@ const packagejson = require('./package.json');
           try {
             gitAddResult = await gitAdd()
           } catch (e) {
+            console.log('ERROR')
             console.log(e)
             process.exit(1)
           }
