@@ -23,10 +23,10 @@ const packagejson = require('./package.json');
       checkout.stderr.on('data', data => {
         // 分支切换成功之后的git的输出是标准错误输出
         if (data.indexOf(`Switched to a new branch ${branch}`)) {
-          resolve(`Switched to a new branch ${branch}`)
+          resolve(data.toString().trim())
         }
 
-        reject(data)
+        reject(data.toString().trimRight().red)
       })
     })
     
@@ -37,7 +37,7 @@ const packagejson = require('./package.json');
     try {
       checkoutResult = await checkout()
     } catch (e) {
-      console.log(e.toString().trimRight().red)
+      console.log(e)
       process.exit(1)
     }
     console.log('分支切换成功'.rainbow)
