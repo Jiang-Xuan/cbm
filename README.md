@@ -1,7 +1,7 @@
 Modify package.json filed version and auto add-commit when checkout new branch.
 ===============================================================================
 
-切换分支的同时修改`package.json`的版本号到`daily/0.0.1`中的斜线后面的数字版本
+新建分支的同时修改`package.json`的版本号到`daily/0.0.1`中的斜线后面的数字版本
 ---------------------------------------------------------------------
 
 ## Notes
