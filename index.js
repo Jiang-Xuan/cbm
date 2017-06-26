@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 require('colors')
 
 const fs = require('fs')
@@ -95,6 +96,7 @@ const packagejson = require('./package.json');
     fs.stat(path.resolve(process.cwd(), 'package.json'), (err, stat) => {
       if (err) {
         console.log(err)
+        process.exit(1)
       }
 
       if (stat.isFile()) {
