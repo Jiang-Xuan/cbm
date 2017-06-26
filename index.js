@@ -93,7 +93,7 @@ const packagejson = require('./package.json');
   }
 
   function writePackageJSON(string) {
-    fs.stat(path.resolve(process.cwd(), 'package.json'), (err, stat) => {
+    fs.stat(path.resolve(__dirname, 'package.json'), (err, stat) => {
       if (err) {
         console.log(err)
         process.exit(1)
